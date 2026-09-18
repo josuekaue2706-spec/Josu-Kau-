@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uma pergunta para você ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: "Poppins", Arial, sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3, #c471ed);
+      color: white;
+    }
+
+    .container {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 600px;
+      padding: 45px 30px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      animation: aparecer 1.2s ease;
+      z-index: 2;
+    }
+
+    .coracao {
+      font-size: 70px;
+      animation: pulsar 1.2s infinite;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 7vw, 3.5rem);
+      margin-bottom: 15px;
+    }
+
+    .nome {
+      color: #ffe0e9;
+    }
+
+    .mensagem {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin: 20px auto 30px;
+      max-width: 500px;
+    }
+
+    .botoes {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      min-height: 70px;
+    }
+
+    button {
+      border: none;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    #sim {
+      background: #ff1744;
+      color: white;
+      box-shadow: 0 8px 20px rgba(255, 23, 68, 0.4);
+    }
+
+    #sim:hover {
+      transform: scale(1.1);
+      background: #e60032;
+    }
+
+    #nao {
+      background: white;
+      color: #ff477e;
+      position: relative;
+      z-index: 20;
+    }
+
+    .resultado {
+      display: none;
+      animation: aparecer 1s ease;
+    }
+
+    .resultado h2 {
+      font-size: clamp(2rem, 8vw, 4rem);
+      margin-bottom: 20px;
+    }
+
+    .resultado p {
+      font-size: 1.2rem;
+      line-height: 1.7;
+    }
+
+    .assinatura {
+      margin-top: 30px;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -50px;
+      font-size: 25px;
+      opacity: 0.7;
+      animation: subir linear forwards;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes subir {
+      from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+      }
+
+      to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .confete {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: -20px;
+      z-index: 10;
+      animation: cair 3s linear forwards;
+    }
+
+    @keyframes cair {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+      }
+    }
+
+    @keyframes pulsar {
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .card {
+        padding: 35px 20px;
+      }
+
+      .mensagem {
+        font-size: 1rem;
+      }
+
+      .botoes {
+        gap: 10px;
+      }
+
+      button {
+        padding: 13px 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="card">
+
+      <!-- PRIMEIRA TELA -->
+      <div id="pedido">
+
+        <div class="coracao">❤️</div>
+
+        <h1>
+          <span class="nome">Evelin</span>,
+          tenho uma pergunta...
+        </h1>
+
+        <p class="mensagem">
+          Desde que você entrou na minha vida, algumas coisas ficaram
+          mais bonitas. Meus dias ganharam mais sorrisos, meus pensamentos
+          ganharam um motivo e meu coração... bom, esse já tem dona. ❤️
+          <br><br>
+          Então eu queria te perguntar uma coisa que eu venho querendo
+          dizer há algum tempo...
+        </p>
+
+        <h2>Você quer namorar comigo? 💍❤️</h2>
+
+        <br>
+
+        <div class="botoes">
+
+          <button id="sim" onclick="aceitou()">
+            SIM! ❤️
+          </button>
+
+          <button id="nao">
+            Não 😢
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- TELA DEPOIS DO SIM -->
+      <div id="resultado" class="resultado">
+
+        <div class="coracao">💖</div>
+
+        <h2>ELA DISSE SIM! 🥹❤️</h2>
+
+        <p>
+          Eu sabia que você ia escolher certo! 😂
+          <br><br>
+          Agora oficialmente temos uma nova história para escrever juntos.
+          Que seja o começo de muitos momentos incríveis, muitos abraços,
+          muitas risadas e muitos "eu te amo".
+        </p>
+
+        <div class="assinatura">
+          Com amor,<br>
+          <strong>Josué ❤️</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* =========================
+       BOTÃO "NÃO" FUGINDO
+       ========================= */
+
+    const botaoNao = document.getElementById("nao");
+
+    function moverBotao() {
+
+      const margem = 20;
+
+      const larguraMax =
+        window.innerWidth - botaoNao.offsetWidth - margem;
+
+      const alturaMax =
+        window.innerHeight - botaoNao.offsetHeight - margem;
+
+      const x =
+        margem + Math.random() * (larguraMax - margem);
+
+      const y =
+        margem + Math.random() * (alturaMax - margem);
+
+      botaoNao.style.position = "fixed";
+
+      botaoNao.style.left = `${x}px`;
+      botaoNao.style.top = `${y}px`;
+
+      botaoNao.style.transition =
+        "left 0.2s ease, top 0.2s ease";
+    }
+
+
+    /* O botão foge quando o cursor chega perto */
+
+    document.addEventListener("mousemove", function(event) {
+
+      const rect = botaoNao.getBoundingClientRect();
+
+      const centroX = rect.left + rect.width / 2;
+      const centroY = rect.top + rect.height / 2;
+
+      const distanciaX = event.clientX - centroX;
+      const distanciaY = event.clientY - centroY;
+
+      const distancia = Math.sqrt(
+        distanciaX * distanciaX +
+        distanciaY * distanciaY
+      );
+
+      /* Quanto maior o número, mais fácil é pegar o botão.
+         130 deixa ele fugir antes do cursor encostar. */
+
+      if (distancia < 130) {
+        moverBotao();
+      }
+
+    });
+
+
+    /* Também funciona no celular */
+
+    botaoNao.addEventListener("touchstart", function(event) {
+
+      event.preventDefault();
+
+      moverBotao();
+
+    });
+
+
+    /* =========================
+       QUANDO ELA CLICAR NO SIM
+       ========================= */
+
+    function aceitou() {
+
+      document.getElementById("pedido").style.display = "none";
+
+      document.getElementById("resultado").style.display = "block";
+
+      criarCoracoes();
+
+      criarConfetes();
+
+    }
+
+
+    /* =========================
+       CORAÇÕES FLUTUANDO
+       ========================= */
+
+    function criarCoracoes() {
+
+      setInterval(() => {
+
+        const heart = document.createElement("div");
+
+        heart.classList.add("heart");
+
+        const coracoes = [
+          "❤️",
+          "💖",
+          "💕",
+          "💗",
+          "💓"
+        ];
+
+        heart.innerHTML =
+          coracoes[
+            Math.floor(Math.random() * coracoes.length)
+          ];
+
+        heart.style.left =
+          Math.random() * 100 + "vw";
+
+        heart.style.fontSize =
+          (15 + Math.random() * 30) + "px";
+
+        heart.style.animationDuration =
+          (3 + Math.random() * 4) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 7000);
+
+      }, 250);
+
+    }
+
+
+    /* =========================
+       CONFETES
+       ========================= */
+
+    function criarConfetes() {
+
+      const cores = [
+        "#ff1744",
+        "#ffffff",
+        "#ffd700",
+        "#ff69b4",
+        "#00e5ff",
+        "#7cff00"
+      ];
+
+      for (let i = 0; i < 150; i++) {
+
+        const confete =
+          document.createElement("div");
+
+        confete.classList.add("confete");
+
+        confete.style.left =
+          Math.random() * 100 + "vw";
+
+        confete.style.background =
+          cores[
+            Math.floor(Math.random() * cores.length)
+          ];
+
+        confete.style.width =
+          (5 + Math.random() * 10) + "px";
+
+        confete.style.height =
+          (5 + Math.random() * 10) + "px";
+
+        confete.style.animationDelay =
+          Math.random() * 2 + "s";
+
+        document.body.appendChild(confete);
+
+        setTimeout(() => {
+          confete.remove();
+        }, 5000);
+
+      }
+
+    }
+
+
+    /* =========================
+       CORAÇÕES NA PRIMEIRA TELA
+       ========================= */
+
+    setInterval(() => {
+
+      const heart = document.createElement("div");
+
+      heart.classList.add("heart");
+
+      heart.innerHTML = "❤️";
+
+      heart.style.left =
+        Math.random() * 100 + "vw";
+
+      heart.style.animationDuration =
+        (5 + Math.random() * 5) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 10000);
+
+    }, 700);
+
+  </script>
+
+</body>
+</html>
